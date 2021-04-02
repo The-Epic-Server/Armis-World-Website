@@ -10,18 +10,22 @@
    </head>
    <body>
       <jsp:include page="elements/navbar.jsp"></jsp:include>
+      <jsp:include page="elements/alert.jsp"></jsp:include>
       <h1>Login</h1>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
-      <% if (request.getParameter("message") != null) {
-    	  %>
-    	  <p class="message"><% out.println(request.getParameter("message")); %></p>
-    	  <%
-      } %>
-      <form method="POST">
-         <input type="email" id="email" name="email">
-         <input type="password" id="password" name="password">
-         <input type="submit" value="Login">
-      </form>
+      <div class="w3-container">
+      	<div class="w3-card-4">
+      		<div class="w3-container w3-gold">
+      			<form class="w3-container" method="POST">
+      				<label>Email</label>
+         			<input required class="w3-border w3-round w3-input" type="email" id="email" name="email">
+         			<label>Password</label>
+         			<input required class="w3-border w3-round w3-input" type="password" id="password" name="password">
+         			<button type="submit" class="w3-input w3-btn w3-blue-grey">Login</button>
+      			</form>
+      		</div>
+      	</div>
+      </div>
       <% } else { %>
       <%
          List<HashMap<String, Object>> users = Database.runQuery("SELECT * FROM users WHERE email=\""+request.getParameter("email")+"\"");
@@ -39,5 +43,6 @@
          %>
       <% } %>
       <jsp:include page="static/js/norefresh.js"></jsp:include>
+      <jsp:include page="elements/footer.jsp"></jsp:include>
    </body>
 </html>

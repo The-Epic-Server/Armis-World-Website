@@ -1,0 +1,1 @@
+<% response.sendRedirect("https://discord.gg/CpzumhmdpM"); %>

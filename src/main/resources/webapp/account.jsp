@@ -1,8 +1,9 @@
-<%@page import="net.tkdkid1000.armiworldweb.User" %>
-<%@page import="net.tkdkid1000.armiworldweb.Config" %>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="net.tkdkid1000.armiworldweb.Database"%>
 <%@page import="java.util.List" %>
+<%@page import="net.tkdkid1000.armiworldweb.Config" %>
+<%@page import="net.tkdkid1000.armiworldweb.User" %>
 <!doctype html>
 <html>
    <head>
@@ -12,9 +13,10 @@
    <body>
       <jsp:include page="elements/navbar.jsp"></jsp:include>
       <jsp:include page="elements/alert.jsp"></jsp:include>
-      <h1>Register</h1>
+      <br />
+      <h1>Profile</h1>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
-      <div class="w3-container">
+      <div class="w3-container w3-display-middle" style="width: 500px;">
       	<div class="w3-card-4">
       		<div class="w3-container w3-gold">
       			<form class="w3-container" method="POST">

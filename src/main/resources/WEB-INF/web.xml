@@ -6,7 +6,7 @@
    version="5.0">
   <servlet>
     <servlet-name>Home</servlet-name>
-	<jsp-file>/home.jsp</jsp-file>
+	<jsp-file>/index.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
 	<servlet-name>Home</servlet-name>
@@ -35,6 +35,22 @@
   <servlet-mapping>
 	<servlet-name>Logout</servlet-name>
 	<url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Account</servlet-name>
+	<jsp-file>/account.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Account</servlet-name>
+	<url-pattern>/account</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Discord</servlet-name>
+	<jsp-file>/redirects/discord.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Discord</servlet-name>
+	<url-pattern>/discord</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>jsp</servlet-name>
