@@ -5,14 +5,6 @@
    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
    version="5.0">
   <servlet>
-    <servlet-name>HomeTest</servlet-name>
-    <servlet-class>net.tkdkid1000.armiworldweb.Home</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>HomeTest</servlet-name>
-    <url-pattern>/hometest/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>Home</servlet-name>
 	<jsp-file>/home.jsp</jsp-file>
   </servlet>
@@ -36,6 +28,14 @@
 	<servlet-name>Login</servlet-name>
 	<url-pattern>/login</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+	<jsp-file>/auth/logout.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Logout</servlet-name>
+	<url-pattern>/logout</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>jsp</servlet-name>
     <url-pattern>*.jsp</url-pattern>
@@ -47,4 +47,12 @@
     <url-pattern>*.JSPX</url-pattern>
 	<url-pattern>*.XSP</url-pattern>
   </servlet-mapping>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error/403.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/404.jsp</location>
+  </error-page>
 </web-app>

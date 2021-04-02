@@ -2,6 +2,7 @@ package net.tkdkid1000.armiworldweb;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonIOException;
@@ -15,12 +16,34 @@ public class User {
 	private String icon;
 	private int reputation;
 	
+	public static User from(String email) {
+		List<HashMap<String, Object>> result = Database.runQuery(String.format("SELECT * FROM users WHERE email=\"%s\"", email));
+		if (result.size() > 0) {
+			HashMap<String, Object> user = result.get(0);
+			User usr = new User((String) user.get("email"), 
+					(String) user.get("username"), 
+					(String) user.get("password"), 
+					(String) user.get("icon"),
+					(int) user.get("reputation"));
+			return usr;
+		}
+		return null;
+	}
+	
 	public User(String email, String username, String password) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.icon = "https://purr.objects-us-east-1.dream.io/i/20160824_163745-1.jpg";
 		this.reputation = 0;
+	}
+	
+	public User(String email, String username, String password, String icon, int reputation) {
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.icon = icon;
+		this.reputation = reputation;
 	}
 	
 	public String getEmail() {
@@ -93,30 +116,20 @@ public class User {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Map<String, Object> getData() throws JsonSyntaxException, JsonIOException, IOException {
-		Map<String, Object> users = (Map<String, Object>) Database.load().get("users");
-		return (Map<String, Object>) users.get(getEmail());
+	public Map<String, Object> getData() {
+		return Database.runQuery(String.format("SELECT * FROM users WHERE email=\"%s\"", email)).get(0);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void register() throws JsonSyntaxException, JsonIOException, IOException {
-		Map<String, Object> users = (Map<String, Object>) Database.load().get("users");
-		Map<String, Object> data = new HashMap<String, Object>();
-		users.put(email, data);
-		Map<String, Object> db = Database.load();
-		db.replace("users", users);
-		System.out.println(db);
-		Database.save(db);
+		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s);", email, username, password, icon, reputation));
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void update() throws JsonIOException, IOException {
-		Map<String, Object> users = (Map<String, Object>) Database.load().get("users");
-		Map<String, Object> data = new HashMap<String, Object>();
-		users.replace(email, data);
-		Map<String, Object> db = Database.load();
-		db.replace("users", users);
-		Database.save(db);
+		Database.runCommand(String.format("UPDATE users SET email=\"%s\"\n"
+				+ "username=\"%s\"\n"
+				+ "password=\"%s\"\n"
+				+ "icon=\"%s\"\n"
+				+ "reputation=%s\n"
+				+ "WHERE email="+email, email, username, password, icon, reputation));
 	}
 }

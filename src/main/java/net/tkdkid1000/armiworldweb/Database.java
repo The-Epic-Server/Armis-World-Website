@@ -4,7 +4,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -12,6 +23,8 @@ import com.google.gson.JsonSyntaxException;
 
 public class Database {
 
+	static Connection conn = null;
+	
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> load() throws JsonSyntaxException, JsonIOException, IOException {
 		return new Gson().fromJson(Files.newBufferedReader(Paths.get("database.json")), Map.class);
@@ -19,5 +32,77 @@ public class Database {
 	
 	public static void save(Map<String, Object> json) throws JsonIOException, IOException {
 		new Gson().toJson(json, new FileWriter("database.json"));
+	}
+	
+	public static void runCommand(String sql, Consumer<PreparedStatement> consumer) {
+		 try {
+			conn = DriverManager.getConnection("jdbc:sqlite:armisworld.db");
+			System.out.println("Connected to sqlite database.");
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			consumer.accept(pstmt);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void runCommand(String sql) {
+		 try {
+			conn = DriverManager.getConnection("jdbc:sqlite:armisworld.db");
+			System.out.println("Connected to sqlite database.");
+			Statement stmt = conn.createStatement();
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static List<HashMap<String, Object>> runQuery(String sql) {
+		 try {
+			conn = DriverManager.getConnection("jdbc:sqlite:armisworld.db");
+			System.out.println("Connected to sqlite database.");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			List<HashMap<String, Object>> objects = new ArrayList<HashMap<String, Object>>();
+			ResultSetMetaData md = rs.getMetaData();
+			int columns = md.getColumnCount();
+			while (rs.next()) {
+				HashMap<String, Object> row = new HashMap<String, Object>();
+				for (int x=1; x<=columns; x++) {
+					row.put(md.getColumnName(x), rs.getObject(x));
+				}
+				objects.add(row);
+			}
+			return objects;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 }

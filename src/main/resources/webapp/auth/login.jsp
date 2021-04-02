@@ -1,13 +1,16 @@
-<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="net.tkdkid1000.armiworldweb.Database"%>
+<%@page import="java.util.List" %>
+<%@page import="net.tkdkid1000.armiworldweb.Config" %>
 <!doctype html>
 <html>
    <head>
-      <title>ArmiWorldWeb</title>
+      <jsp:include page="elements/static_imports.jsp"></jsp:include>
+      <title><%= Config.get("servertitle", "Armi's World") %></title>
    </head>
    <body>
+      <jsp:include page="elements/navbar.jsp"></jsp:include>
       <h1>Login</h1>
-      <a href="/">home</a>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
       <% if (request.getParameter("message") != null) {
     	  %>
@@ -21,23 +24,12 @@
       </form>
       <% } else { %>
       <%
-         Map<String, Object> database = Database.load();
-         @SuppressWarnings("unchecked")
-      	 Map<String, Object> users = (Map<String, Object>) database.get("users");
-         if  (users.containsKey(request.getParameter("email"))) {
-        	 @SuppressWarnings("unchecked")
-        	 Map<String, Object> user = (Map<String, Object>) users.get(request.getParameter("email"));
+         List<HashMap<String, Object>> users = Database.runQuery("SELECT * FROM users WHERE email=\""+request.getParameter("email")+"\"");
+         if (users.size() != 0) {
+        	 HashMap<String, Object> user = users.get(0);
         	 if (user.get("password").equals(request.getParameter("password"))) {
-        		 %>
-            	 <p><% out.println(request.getParameter("email")); %></p>
-          		 <%session.setAttribute("email", request.getParameter("email"));%>
-          		 <br>
-          		 <p><% out.println(request.getParameter("username")); %></p>
-          		 <%session.setAttribute("username", request.getParameter("username"));%>
-          		 <br>
-          		 <p><% out.println(request.getParameter("password")); %></p>
-          		 <%session.setAttribute("password", request.getParameter("password"));%>
-            	 <%
+        		 session.setAttribute("email", request.getParameter("email"));
+        		 response.sendRedirect("/?message=Successfully%20logged%20in.");
         	 } else {
         		 response.sendRedirect(request.getServletPath()+"?message=The%20password%20you%20used%20is%20incorrect!");
         	 }
@@ -46,6 +38,6 @@
          }
          %>
       <% } %>
-      <jsp:include page="norefresh.js"></jsp:include>
+      <jsp:include page="static/js/norefresh.js"></jsp:include>
    </body>
 </html>
