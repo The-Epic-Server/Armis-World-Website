@@ -8,10 +8,14 @@ body {
 }
 
 .logo {
-	position: absolute;
-	top: 30%;
-  	left: 50%;
-	width: 50%;
+	z-index: -1;
+	width: 500px;
 	height: auto;
-	transform: translate(-50%, -50%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-align: center;
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	color: #db1940;
 }
