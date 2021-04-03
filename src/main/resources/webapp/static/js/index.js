@@ -8,3 +8,20 @@ function copytext(text) {
 	document.execCommand("copy");
 	copyText.remove();
 }
+
+function copytexttooltip(text, element) {
+	var attribute = element.getAttribute("data-bs-original-title");
+	element.style.display = "none";
+	copytext(text);
+	element.setAttribute("data-bs-original-title", "Copied!");
+	setTimeout(() => {
+		element.style.display = "inline";
+	}, 1);
+	setTimeout(() => {
+		element.setAttribute("data-bs-original-title", attribute);
+		element.style.display = "none";
+		setTimeout(() => {
+			element.style.display = "inline";
+		}, 1);
+	}, 3000);
+}

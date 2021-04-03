@@ -9,42 +9,48 @@
    <body>
       <jsp:include page="/elements/navbar.jsp"></jsp:include>
       <jsp:include page="/elements/alert.jsp"></jsp:include>
-      <div class="w3-container w3-center">
-      	<img class="logo" src="static/images/armiworld.png">
-      </div>
-      <br />
-      <hr />
-      <div class="w3-container">
-      	<div class="w3-panel w3-pale-yellow w3-topbar w3-bottombar w3-border-yellow">
-      		<p>Come play with us! <a href="javascript:void(0);" style="cursor: pointer;" class="w3-tooltip" onclick="copytext('armi.tkdkid1000.net');">armi.tkdkid1000.net<span style="position:absolute;left:0;bottom:18px"
-class="w3-text w3-tag w3-round w3-animate-opacity">Click to copy ip!</span></a>!</p>
-      	</div>
-      </div>
-      <br />
-      <hr />
-      <div class="w3-row-padding">
-      <div class="w3-container" style="display: inline; float: left;">
-      	<div class="w3-card-4 w3-white w3-round-xlarge w3-half" style="width:300px;">
-  			<div class="w3-container w3-center w3-large">
-    			<div class="w3-center"><h1>Beaconwars</h1></div>
-    			<div class="w3-left-align w3-small">
-    				<p>The first game on Armi's World. Beaconwars is a fork of bedwars with a twist!</p>
-    				<p>In beaconwars you work to defend your beacon, while also destroying other teams' beacons.</p>
-    			</div>
-  			</div>
+      <div class="container">
+    	<div class="row">
+        	<div class="col-4">
+          		<div class="text-center">
+            		<img src="/static/images/armiworld.png"> 
+          		</div>     
+        	</div>
+    	</div>
+	  </div>
+	  <hr />
+	  <br>
+	  <div class="container">
+	  	<div class="alert alert-warning" role="alert">
+	  		<p>Come play with us! <span data-bs-toggle="tooltip" data-bs-placement="top" title="Click to copy the ip!" style="cursor: pointer;" onclick="copytexttooltip('armi.tkdkid1000.net', this);">armi.tkdkid1000.net</span></p>
 	  	</div>
-	  	<div class="w3-card-4 w3-white w3-round-xlarge w3-half" style="width:300px;">
-  			<div class="w3-container w3-center w3-large">
-    			<div class="w3-center"><h1>Economy</h1></div>
-    			<div class="w3-left-align w3-small">
-    				<p>Our twist on the towny gamemode. You build houses, claim land, participate in player run events, and more!</p>
-    				<p>You can kinda do what you want hear. It's basically survival with jobs.</p>
-    			</div>
-  			</div>
 	  	</div>
-      </div>
-      </div>
-      
+	  	<hr />
+	  	<br>
+	  	<div class="container">
+	  		<div class="card" style="width: 18rem; display:inline-block;">
+	  		<img src="/static/images/beaconwars.png" class="card-img-top">
+	  		<div class="card-body">
+	  			<h5 class="card-title">Beaconwars</h5>
+		  		<p class="card-text">The first game on Armi's World. Beaconwars is a fork of bedwars with a twist!</p>
+   		 		<p class="card-text">In beaconwars you work to defend your beacon, while also destroying other teams' beacons.</p>
+	  		</div>
+	  	</div>
+      	<div class="card" style="width: 18rem; display:inline-block;">
+	  		<img src="/static/images/economy.png" class="card-img-top">
+	  		<div class="card-body">
+	  			<h5 class="card-title">Economy</h5>
+	  			<p class="card-text">Our twist on the towny gamemode. You build houses, claim land, participate in player run events, and more!</p>
+    			<p class="card-text">You can kinda do what you want hear. It's basically survival with jobs.</p>
+	  		</div>
+	 	 </div>
+	  </div>
+	  <script type="text/javascript">
+	  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	    return new bootstrap.Tooltip(tooltipTriggerEl)
+	  })
+	  </script>
       <jsp:include page="/static/js/norefresh.js"></jsp:include>
       <jsp:include page="/elements/footer.jsp"></jsp:include>
    </body>
