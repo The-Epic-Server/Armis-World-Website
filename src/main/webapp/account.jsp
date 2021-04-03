@@ -41,10 +41,10 @@
     	if (users.size() != 0) {
     		User user = User.from((String)session.getAttribute("email"));
     		if (((String)request.getParameter("oldpassword")).equals(user.getPassword())) {
-    			if (!(((String) request.getParameter("username")).strip().equals(""))) {
+    			if (!(((String) request.getParameter("username")).equals(""))) {
         			user.setUsername((String)request.getParameter("username"));
         		}
-        		if (!(((String) request.getParameter("password")).strip().equals(""))) {
+        		if (!(((String) request.getParameter("password")).equals(""))) {
         			user.setPassword((String)request.getParameter("password"));
         		}
         		response.sendRedirect("/account?message=Successfully%20updated%20your%20account%20data.");
