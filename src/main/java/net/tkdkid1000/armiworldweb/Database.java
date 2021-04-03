@@ -1,9 +1,5 @@
 package net.tkdkid1000.armiworldweb;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,25 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Consumer;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
 
 public class Database {
 
 	static Connection conn = null;
-	
-	@SuppressWarnings("unchecked")
-	public static Map<String, Object> load() throws JsonSyntaxException, JsonIOException, IOException {
-		return new Gson().fromJson(Files.newBufferedReader(Paths.get("database.json")), Map.class);
-	}
-	
-	public static void save(Map<String, Object> json) throws JsonIOException, IOException {
-		new Gson().toJson(json, new FileWriter("database.json"));
-	}
 	
 	public static void runCommand(String sql, Consumer<PreparedStatement> consumer) {
 		 try {

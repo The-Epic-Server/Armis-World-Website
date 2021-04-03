@@ -20,8 +20,8 @@ public class Main extends AbstractHandler {
 		conn.setHost(Config.get("hostname", "localhost"));
 		server.addConnector(conn);
 		WebAppContext ctx = new WebAppContext();
-		ctx.setDescriptor("src/main/resources/WEB-INF/web.xml");
-		ctx.setResourceBase("src/main/resources/webapp");
+		ctx.setDescriptor("src/main/webapp/WEB-INF/web.xml");
+		ctx.setResourceBase("src/main/webapp");
 		ctx.setContextPath("/");
 		ctx.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*jstl.*\\.jar$");
 		ctx.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");

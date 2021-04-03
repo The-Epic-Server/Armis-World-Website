@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
-
 public class User {
 
 	private String email;
@@ -54,7 +51,7 @@ public class User {
 		this.email = email;
 		try {
 			update();
-		} catch (JsonIOException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -68,7 +65,7 @@ public class User {
 		this.username = username;
 		try {
 			update();
-		} catch (JsonIOException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -82,7 +79,7 @@ public class User {
 		this.password = password;
 		try {
 			update();
-		} catch (JsonIOException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -96,7 +93,7 @@ public class User {
 		this.icon = icon;
 		try {
 			update();
-		} catch (JsonIOException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -110,7 +107,7 @@ public class User {
 		this.reputation = reputation;
 		try {
 			update();
-		} catch (JsonIOException | IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -120,11 +117,11 @@ public class User {
 		return Database.runQuery(String.format("SELECT * FROM users WHERE email=\"%s\"", email)).get(0);
 	}
 	
-	public void register() throws JsonSyntaxException, JsonIOException, IOException {
+	public void register() {
 		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s);", email, username, password, icon, reputation));
 	}
 	
-	private void update() throws JsonIOException, IOException {
+	private void update() throws IOException {
 		Database.runCommand(String.format("UPDATE users SET email=\"%s\"\n"
 				+ "username=\"%s\"\n"
 				+ "password=\"%s\"\n"
