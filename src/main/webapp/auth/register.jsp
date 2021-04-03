@@ -36,7 +36,7 @@
    		List<HashMap<String, Object>> users = Database.runQuery("SELECT * FROM users WHERE email=\""+request.getParameter("email")+"\"");
     	if (users.size() == 0) {
     		new User(request.getParameter("email"), request.getParameter("username"), request.getParameter("password")).register();
-    		response.sendRedirect("/login?Successfully%20registered%20you.%20Please%20login.");
+    		response.sendRedirect("/login?message=Successfully%20registered%20you.%20Please%20login.");
        		
     	} else {
     		response.sendRedirect("/register?message=There%20is%20already%20an%20account%20registered%20with%20that%20email!");

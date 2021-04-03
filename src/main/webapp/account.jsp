@@ -16,6 +16,7 @@
       <br />
       <h1>Profile</h1>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
+      <% if (session.getAttribute("email") != null) { %>
       <div class="container card">
         	<form class="form-horizontal" method="POST">
       			<div class="form-group">
@@ -24,9 +25,11 @@
         			<label class="control-label col-sm-2">New Username</label>
         			<input class="form-control" type="text" id="username" name="username">
         			<label class="control-label col-sm-2">New Password</label>
-        			<input class="form-control" type="password" id="password" name="password">
+        			<input class="form-control" type="password" id="newpassword" name="newpassword">
+        			<label class="control-label col-sm-2">New Icon</label>
+        			<input class="form-control" type="text" id="icon" name="icon">
         			<label class="control-label col-sm-2">Current Password</label>
-        			<input required class="form-control" type="password" id="oldpassword" name="oldpassword">
+        			<input required class="form-control" type="password" id="password" name="password">
       			</div>
       			<p></p>
       			<div class="d-grid gap-2">
@@ -35,17 +38,24 @@
       			<p></p>
       		</form>
         </div>
+        <% } else { %>
+        <div class="container card">
+        	<p>Ah snap! An unexpected error occurred, maybe try logging in?</p>
+        </div>
+        <% } %>
       <% } else {
-    	  
    		List<HashMap<String, Object>> users = Database.runQuery("SELECT * FROM users WHERE email=\""+request.getParameter("email")+"\"");
     	if (users.size() != 0) {
     		User user = User.from((String)session.getAttribute("email"));
-    		if (((String)request.getParameter("oldpassword")).equals(user.getPassword())) {
+    		if (((String)request.getParameter("password")).equals(user.getPassword())) {
     			if (!(((String) request.getParameter("username")).equals(""))) {
         			user.setUsername((String)request.getParameter("username"));
         		}
-        		if (!(((String) request.getParameter("password")).equals(""))) {
-        			user.setPassword((String)request.getParameter("password"));
+        		if (!(((String) request.getParameter("newpassword")).equals(""))) {
+        			user.setPassword((String)request.getParameter("newpassword"));
+        		}
+        		if (!(((String) request.getParameter("icon")).equals(""))) {
+        			user.setIcon((String)request.getParameter("icon"));
         		}
         		response.sendRedirect("/account?message=Successfully%20updated%20your%20account%20data.");
     		} else {

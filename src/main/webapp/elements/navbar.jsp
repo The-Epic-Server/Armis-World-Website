@@ -35,13 +35,16 @@
 					%>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="javascript:void(0);" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="rounded" style="width: 60px; height: auto;" src=<%= user.get("icon") %>>
+							<img class="rounded" style="width: auto; height: 35px;" src=<%= user.get("icon") %>>
 							<br>
 							<span><%= user.get("username") %></span>
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="accountDropdown">
 							<li>
 								<a href="/account" class="nav-link" aria-current="page"><i class="fas fa-user-circle fa-2x"></i> Account</a>
+							</li>
+							<li>
+								<a href="/user?name=<%= user.get("username") %>" class="nav-link" aria-current="page"><i class="fas fa-gamepad fa-2x"></i> Profile</a>
 							</li>
 							<li>
 								<a href="/logout" class="nav-link" aria-current="page"><i class="fas fa-sign-out-alt fa-2x"></i> Logout</a>
@@ -51,10 +54,10 @@
 				<% }} %>
 			</ul>
 			<div class="d-flex flex-row-reverse input-group float-end">
-				<form class="d-flex flex-row-reverse" action="/user/">
-					<input class="form-control me-2 py-2 border-right-0 border" type="search" placeholder="Search users..." aria-label="Search users..." name="name">
+				<form class="d-flex flex-row-reverse" action="/user">
+					<input required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a username!')" class="form-control me-2 py-2 border-right-0 border" type="search" placeholder="Search users..." aria-label="Search users..." name="name">
 					<span class="input-group-append">
-						<button class="btn btn-outline-secondary border-left-0 border" type="button">
+						<button class="btn btn-outline-secondary border-left-0 border" type="submit">
 							<i class="fa fa-search"></i>
 						</button>
 					</span>

@@ -1,18 +1,10 @@
 package net.tkdkid1000.armiworldweb;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-public class Main extends AbstractHandler {
+public class Main {
 
 	public static void main(String[] args) throws Exception {
 		Server server = new Server(Integer.parseInt(Config.get("port", "8080")));
@@ -34,11 +26,5 @@ public class Main extends AbstractHandler {
 		Database.runCommand("CREATE TABLE IF NOT EXISTS forums (id INTEGER UNIQUE, name TEXT UNIQUE, description TEXT, parent TEXT NOT NULL, lastpost INTEGER);");
 		server.start();
 		server.join();
-	}
-
-	@Override
-	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		
 	}
 }

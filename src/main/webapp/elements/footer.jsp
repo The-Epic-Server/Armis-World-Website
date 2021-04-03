@@ -7,5 +7,11 @@
 </div>
 <br />
 <div class="float-end">
-	Copyright &copy; TKDKid1000 - All rights reserved. <img alt="Armi" src="/static/images/armi.png" style="filter: grayscale(100%);">
+	Copyright &copy; <a href="https://github.com/TKDKid1000">TKDKid1000</a> - All rights reserved. <img alt="Armi" src="/static/images/armi.png" style="filter: grayscale(100%);">
 </div>
+<script type="text/javascript">
+	  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+	  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	    return new bootstrap.Tooltip(tooltipTriggerEl)
+	  })
+</script>

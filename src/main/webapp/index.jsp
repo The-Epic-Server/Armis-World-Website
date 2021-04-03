@@ -11,9 +11,9 @@
       <jsp:include page="/elements/alert.jsp"></jsp:include>
       <div class="container">
     	<div class="row">
-        	<div class="col-4">
+        	<div class="col-4 mx-auto d-block">
           		<div class="text-center">
-            		<img src="/static/images/armiworld.png"> 
+            		<img class="rounded" width=100% height=auto src="/static/images/armiworld.png"> 
           		</div>     
         	</div>
     	</div>
@@ -22,7 +22,7 @@
 	  <br>
 	  <div class="container">
 	  	<div class="alert alert-warning" role="alert">
-	  		<p>Come play with us! <span data-bs-toggle="tooltip" data-bs-placement="top" title="Click to copy the ip!" style="cursor: pointer;" onclick="copytexttooltip('armi.tkdkid1000.net', this);">armi.tkdkid1000.net</span></p>
+	  		<p class="text-center">Come play with us! <span data-bs-toggle="tooltip" data-bs-placement="top" title="Click to copy the ip!" style="cursor: pointer;" onclick="copytexttooltip('armi.tkdkid1000.net', this);">armi.tkdkid1000.net</span></p>
 	  	</div>
 	  	</div>
 	  	<hr />
@@ -45,12 +45,6 @@
 	  		</div>
 	 	 </div>
 	  </div>
-	  <script type="text/javascript">
-	  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-	  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-	    return new bootstrap.Tooltip(tooltipTriggerEl)
-	  })
-	  </script>
       <jsp:include page="/static/js/norefresh.js"></jsp:include>
       <jsp:include page="/elements/footer.jsp"></jsp:include>
    </body>
