@@ -14,21 +14,23 @@
       <jsp:include page="elements/alert.jsp"></jsp:include>
       <h1>Register</h1>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
-      <div class="w3-container">
-      	<div class="w3-card-4">
-      		<div class="w3-container w3-gold">
-      			<form class="w3-container" method="POST">
-      				<label>Email</label>
-         			<input required class="w3-border w3-round w3-input" type="email" id="email" name="email">
-      				<label>Username</label>
-         			<input required class="w3-border w3-round w3-input" type="text" id="username" name="username">
-         			<label>Password</label>
-         			<input required class="w3-border w3-round w3-input" type="password" id="password" name="password">
-         			<button type="submit" class="w3-input w3-btn w3-blue-grey">Login</button>
-      			</form>
-      		</div>
-      	</div>
-      </div>
+      <div class="container card">
+        	<form class="form-horizontal" method="POST">
+      			<div class="form-group">
+      				<label class="control-label col-sm-2">Email</label>
+        			<input required class="form-control" type="email" id="email" name="email">
+        			<label class="control-label col-sm-2">Username</label>
+        			<input required class="form-control" type="text" id="username" name="username">
+        			<label class="control-label col-sm-2">Password</label>
+        			<input required class="form-control" type="password" id="password" name="password">
+      			</div>
+      			<p></p>
+      			<div class="d-grid gap-2">
+      				<button type="submit" class="btn btn-primary btn-block">Register</button>
+      			</div>
+      			<p></p>
+      		</form>
+        </div>
       <% } else {
     	  
    		List<HashMap<String, Object>> users = Database.runQuery("SELECT * FROM users WHERE email=\""+request.getParameter("email")+"\"");

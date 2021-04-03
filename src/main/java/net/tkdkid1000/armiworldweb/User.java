@@ -122,11 +122,17 @@ public class User {
 	}
 	
 	private void update() throws IOException {
-		Database.runCommand(String.format("UPDATE users SET email=\"%s\"\n"
-				+ "username=\"%s\"\n"
-				+ "password=\"%s\"\n"
-				+ "icon=\"%s\"\n"
-				+ "reputation=%s\n"
-				+ "WHERE email="+email, email, username, password, icon, reputation));
+		System.out.println(String.format("UPDATE users SET email=\"%s\", "
+				+ "username=\"%s\", "
+				+ "password=\"%s\", "
+				+ "icon=\"%s\", "
+				+ "reputation=%s "
+				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation));
+		Database.runCommand(String.format("UPDATE users SET email=\"%s\", "
+				+ "username=\"%s\", "
+				+ "password=\"%s\", "
+				+ "icon=\"%s\", "
+				+ "reputation=%s "
+				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation));
 	}
 }
