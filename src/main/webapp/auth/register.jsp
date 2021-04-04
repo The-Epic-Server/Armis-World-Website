@@ -35,7 +35,19 @@
     	  
    		List<HashMap<String, Object>> users = Database.runQuery("SELECT * FROM users WHERE email=\""+request.getParameter("email")+"\"");
     	if (users.size() == 0) {
-    		new User(request.getParameter("email"), request.getParameter("username"), request.getParameter("password")).register();
+    		List<HashMap<String, Object>> allusers = Database.runQuery("SELECT * FROM users;");
+    		boolean contains = false;
+			for (HashMap<String, Object> usr : allusers) {
+				System.out.println(usr.get("username"));
+				if (((String)usr.get("username")).equalsIgnoreCase((String)request.getParameter("username"))) {
+					contains = true;
+				}
+			}
+			if (!contains) {
+				new User(request.getParameter("email"), request.getParameter("username"), request.getParameter("password")).register();
+			} else {
+				response.sendRedirect("/register?message=That%20username%20is%20already%20taken%20!");
+			}
     		response.sendRedirect("/login?message=Successfully%20registered%20you.%20Please%20login.");
        		
     	} else {

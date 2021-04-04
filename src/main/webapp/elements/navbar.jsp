@@ -55,7 +55,17 @@
 			</ul>
 			<div class="d-flex flex-row-reverse input-group float-end">
 				<form class="d-flex flex-row-reverse" action="/user">
-					<input required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a username!')" class="form-control me-2 py-2 border-right-0 border" type="search" placeholder="Search users..." aria-label="Search users..." name="name">
+					<input list="users" required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a username!')" class="form-control me-2 py-2 border-right-0 border" type="search" placeholder="Search users..." aria-label="Search users..." name="name">
+					<datalist id="users">
+						<% 
+						List<HashMap<String, Object>> allusers = Database.runQuery("SELECT * FROM users;");
+						for (HashMap<String, Object> usr : allusers) {
+							%>
+							<option><%= usr.get("username") %></option>
+							<%
+						}
+						%>
+					</datalist>
 					<span class="input-group-append">
 						<button class="btn btn-outline-secondary border-left-0 border" type="submit">
 							<i class="fa fa-search"></i>

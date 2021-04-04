@@ -19,7 +19,6 @@ public class Database {
 	public static void runCommand(String sql, Consumer<PreparedStatement> consumer) {
 		 try {
 			conn = DriverManager.getConnection("jdbc:sqlite:armisworld.db");
-			System.out.println("Connected to sqlite database.");
 			Statement stmt = conn.createStatement();
 			stmt.execute(sql);
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -41,7 +40,6 @@ public class Database {
 	public static void runCommand(String sql) {
 		 try {
 			conn = DriverManager.getConnection("jdbc:sqlite:armisworld.db");
-			System.out.println("Connected to sqlite database.");
 			Statement stmt = conn.createStatement();
 			stmt.execute(sql);
 		} catch (SQLException e) {
@@ -60,7 +58,6 @@ public class Database {
 	public static List<HashMap<String, Object>> runQuery(String sql) {
 		 try {
 			conn = DriverManager.getConnection("jdbc:sqlite:armisworld.db");
-			System.out.println("Connected to sqlite database.");
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			List<HashMap<String, Object>> objects = new ArrayList<HashMap<String, Object>>();

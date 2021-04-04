@@ -48,8 +48,21 @@
     	if (users.size() != 0) {
     		User user = User.from((String)session.getAttribute("email"));
     		if (((String)request.getParameter("password")).equals(user.getPassword())) {
+    			List<HashMap<String, Object>> allusers = Database.runQuery("SELECT * FROM users;");
+    			String usernameerror = "";
     			if (!(((String) request.getParameter("username")).equals(""))) {
-        			user.setUsername((String)request.getParameter("username"));
+    				boolean contains = false;
+    				for (HashMap<String, Object> usr : allusers) {
+    					System.out.println(usr.get("username"));
+    					if (((String)usr.get("username")).equalsIgnoreCase((String)request.getParameter("username"))) {
+    						contains = true;
+    					}
+    				}
+    				if (!contains) {
+        				user.setUsername((String)request.getParameter("username"));
+    				} else {
+    					usernameerror = "&message=That%20username%20is%20already%20taken%20!";
+    				}
         		}
         		if (!(((String) request.getParameter("newpassword")).equals(""))) {
         			user.setPassword((String)request.getParameter("newpassword"));
@@ -57,7 +70,7 @@
         		if (!(((String) request.getParameter("icon")).equals(""))) {
         			user.setIcon((String)request.getParameter("icon"));
         		}
-        		response.sendRedirect("/account?message=Successfully%20updated%20your%20account%20data.");
+        		response.sendRedirect("/account?message=Successfully%20updated%20your%20account%20data."+usernameerror);
     		} else {
     			response.sendRedirect("/account?message=Your%20old%20password%20is%20incorrect.");
     		}
