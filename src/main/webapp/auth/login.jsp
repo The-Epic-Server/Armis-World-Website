@@ -5,7 +5,7 @@
 <!doctype html>
 <html>
    <head>
-      <jsp:include page="elements/static_imports.jsp"></jsp:include>
+      <jsp:include page="/elements/static_imports.jsp"></jsp:include>
       <title><%= Config.get("servertitle", "Armi's World") %></title>
    </head>
    <body>

@@ -6,12 +6,12 @@
 <!doctype html>
 <html>
    <head>
-      <jsp:include page="elements/static_imports.jsp"></jsp:include>
+      <jsp:include page="/elements/static_imports.jsp"></jsp:include>
       <title><%= Config.get("servertitle", "Armi's World") %></title>
    </head>
    <body>
-      <jsp:include page="elements/navbar.jsp"></jsp:include>
-      <jsp:include page="elements/alert.jsp"></jsp:include>
+      <jsp:include page="/elements/navbar.jsp"></jsp:include>
+      <jsp:include page="/elements/alert.jsp"></jsp:include>
       <h1>Register</h1>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
       <div class="container card">
@@ -54,7 +54,7 @@
     		response.sendRedirect("/register?message=There%20is%20already%20an%20account%20registered%20with%20that%20email!");
     	}
       } %>
-      <jsp:include page="static/js/norefresh.js"></jsp:include>
-      <jsp:include page="elements/footer.jsp"></jsp:include>
+      <jsp:include page="/static/js/norefresh.js"></jsp:include>
+      <jsp:include page="/elements/footer.jsp"></jsp:include>
    </body>
 </html>

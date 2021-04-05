@@ -1,0 +1,1 @@
+<% response.sendRedirect("https://armisworld.tebex.io"); %>

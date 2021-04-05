@@ -1,9 +1,12 @@
 package net.tkdkid1000.armiworldweb;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.http.client.utils.URIBuilder;
 
 public class User {
 
@@ -12,6 +15,7 @@ public class User {
 	private String password;
 	private String icon;
 	private int reputation;
+	private String role;
 	
 	public static User from(String email) {
 		List<HashMap<String, Object>> result = Database.runQuery(String.format("SELECT * FROM users WHERE email=\"%s\"", email));
@@ -21,7 +25,8 @@ public class User {
 					(String) user.get("username"), 
 					(String) user.get("password"), 
 					(String) user.get("icon"),
-					(int) user.get("reputation"));
+					(int) user.get("reputation"),
+					(String) user.get("role"));
 			return usr;
 		}
 		return null;
@@ -33,14 +38,29 @@ public class User {
 		this.password = password;
 		this.icon = "https://purr.objects-us-east-1.dream.io/i/20160824_163745-1.jpg";
 		this.reputation = 0;
+		this.role = "default";
 	}
 	
-	public User(String email, String username, String password, String icon, int reputation) {
+	public User(String email, String username, String password, String icon, int reputation, String role) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.icon = icon;
 		this.reputation = reputation;
+		this.role = role;
+	}
+	
+	public String getUrl() {
+		URIBuilder builder = new URIBuilder();
+		builder.setPath("/user");
+		builder.addParameter("name", username);
+		try {
+			return builder.build().toString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public String getEmail() {
@@ -118,7 +138,7 @@ public class User {
 	}
 	
 	public void register() {
-		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s);", email, username, password, icon, reputation));
+		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation,role) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s,\"%s\");", email, username, password, icon, reputation, role));
 	}
 	
 	private void update() throws IOException {
@@ -126,13 +146,15 @@ public class User {
 				+ "username=\"%s\", "
 				+ "password=\"%s\", "
 				+ "icon=\"%s\", "
-				+ "reputation=%s "
-				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation));
+				+ "reputation=%s, "
+				+ "role=%s "
+				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation, role));
 		Database.runCommand(String.format("UPDATE users SET email=\"%s\", "
 				+ "username=\"%s\", "
 				+ "password=\"%s\", "
 				+ "icon=\"%s\", "
-				+ "reputation=%s "
-				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation));
+				+ "reputation=%s, "
+				+ "role=%s "
+				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation, role));
 	}
 }

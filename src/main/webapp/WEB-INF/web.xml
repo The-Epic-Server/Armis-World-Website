@@ -60,6 +60,46 @@
 	<servlet-name>Users</servlet-name>
 	<url-pattern>/user</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Shop</servlet-name>
+	<jsp-file>/redirects/shop.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Shop</servlet-name>
+	<url-pattern>/shop</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Forums-Index</servlet-name>
+	<jsp-file>/forums/index.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Forums-Index</servlet-name>
+	<url-pattern>/forums</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Forums-Forum</servlet-name>
+	<jsp-file>/forums/forum.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Forums-Forum</servlet-name>
+	<url-pattern>/forums/forumpage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Forums-Thread</servlet-name>
+	<jsp-file>/forums/thread.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Forums-Thread</servlet-name>
+	<url-pattern>/forums/thread</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Forums-Create</servlet-name>
+	<jsp-file>/forums/create.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Forums-Create</servlet-name>
+	<url-pattern>/forums/create</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>jsp</servlet-name>
     <url-pattern>*.jsp</url-pattern>

@@ -7,12 +7,12 @@
 <!doctype html>
 <html>
    <head>
-      <jsp:include page="elements/static_imports.jsp"></jsp:include>
+      <jsp:include page="/elements/static_imports.jsp"></jsp:include>
       <title><%= Config.get("servertitle", "Armi's World") %></title>
    </head>
    <body>
-      <jsp:include page="elements/navbar.jsp"></jsp:include>
-      <jsp:include page="elements/alert.jsp"></jsp:include>
+      <jsp:include page="/elements/navbar.jsp"></jsp:include>
+      <jsp:include page="/elements/alert.jsp"></jsp:include>
       <br />
       <h1>Profile</h1>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
@@ -78,7 +78,7 @@
     		response.sendRedirect("/account?message=An%20unexpected%20error%20occured.%20Please%20contact%20a%20site%20admin.");
     	}
       } %>
-      <jsp:include page="static/js/norefresh.js"></jsp:include>
-      <jsp:include page="elements/footer.jsp"></jsp:include>
+      <jsp:include page="/static/js/norefresh.js"></jsp:include>
+      <jsp:include page="/elements/footer.jsp"></jsp:include>
    </body>
 </html>

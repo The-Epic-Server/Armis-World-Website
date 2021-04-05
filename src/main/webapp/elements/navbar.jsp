@@ -10,10 +10,10 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a href="/store" class="nav-link" aria-current="page"><i class="fas fa-shopping-cart fa-2x"></i> Store</a>
+					<a href="/shop" class="nav-link" aria-current="page"><i class="fas fa-shopping-cart fa-2x"></i> Shop</a>
 				</li>
 				<li class="nav-item">
-					<a href="rules" class="nav-link" aria-current="page"><i class="fas fa-book fa-2x"></i> Rules</a>
+					<a href="/rules" class="nav-link" aria-current="page"><i class="fas fa-book fa-2x"></i> Rules</a>
 				</li>
 				<li class="nav-item">
 					<a href="/forums" class="nav-link" aria-current="page"><i class="fas fa-globe fa-2x"></i> Forums</a>
