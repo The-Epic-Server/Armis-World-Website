@@ -55,7 +55,10 @@
 			</ul>
 			<div class="d-flex flex-row-reverse input-group float-end">
 				<form class="d-flex flex-row-reverse" action="/user">
-					<input list="users" required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a username!')" class="form-control me-2 py-2 border-right-0 border" type="search" placeholder="Search users..." aria-label="Search users..." name="name">
+					<div id="user-input-group" class="input-group-prepend">
+						<button class="input-group-text" id="user-input-group" type="submit"><i class="fa fa-search fa-2x"></i></button>
+					</div>
+					<input aria-describedby="user-input-group" aria-label="User" list="users" required class="form-control" type="text" placeholder="Search users..." aria-label="Search users..." name="name">
 					<datalist id="users">
 						<% 
 						List<HashMap<String, Object>> allusers = Database.runQuery("SELECT * FROM users;");
@@ -66,11 +69,6 @@
 						}
 						%>
 					</datalist>
-					<span class="input-group-append">
-						<button class="btn btn-outline-secondary border-left-0 border" type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
 				</form>
 			</div>
 		</div>

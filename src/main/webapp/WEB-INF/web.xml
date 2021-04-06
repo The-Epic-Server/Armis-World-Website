@@ -69,6 +69,14 @@
 	<url-pattern>/shop</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Rules</servlet-name>
+	<jsp-file>/rules.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>Rules</servlet-name>
+	<url-pattern>/rules</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Forums-Index</servlet-name>
 	<jsp-file>/forums/index.jsp</jsp-file>
   </servlet>

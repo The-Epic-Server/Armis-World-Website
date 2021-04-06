@@ -53,9 +53,18 @@
 									} catch (URISyntaxException e) {
 										e.printStackTrace();
 									}
+									String latesturl = "";
+									URIBuilder latestbuilder = new URIBuilder();
+									latestbuilder.setPath("/forums/thread");
+									latestbuilder.addParameter("id", ""+latest.get("id"));
+									try {
+										latesturl = latestbuilder.build().toString();
+									} catch (URISyntaxException e) {
+										e.printStackTrace();
+									}
   	      							%>
   	      							<li class="list-group-item">
-  	      								<a role="button" class="btn btn-primary" href="<%= url %>"><%= forum.get("name") %></a><span class="float-end"><%= latest.get("title") %> By <a href="<%= User.from((String)latest.get("author")).getUrl() %>"><%= User.from((String)latest.get("author")).getUsername() %></a> <i class="far fa-clock"></i> <%= latest.get("date") %></span>
+  	      								<a role="button" class="btn btn-primary" href="<%= url %>"><%= forum.get("name") %></a><span class="float-end"><a href="<%= latesturl %>"><%= latest.get("title") %></a> By <a href="<%= User.from((String)latest.get("author")).getUrl() %>"><%= User.from((String)latest.get("author")).getUsername() %></a> <i class="far fa-clock"></i> <%= latest.get("date") %></span>
   	      							</li>
       	      					<% } else {
       	      						%>

@@ -22,7 +22,7 @@
      	<div class="container card">
         	<form class="form-horizontal" method="POST">
       			<div class="form-group">
-      				<select name="forum" id="forum" class="form-select" aria-label="Select a forum">
+      				<select required name="forum" id="forum" class="form-select" aria-label="Select a forum">
       					<%
       					List<HashMap<String, Object>> forums = Database.runQuery("SELECT * FROM forums;");
       					for (HashMap<String, Object> forum : forums) {
@@ -37,7 +37,7 @@
       				<label class="control-label col-sm-2">Title</label>
         			<input required class="form-control" type="text" id="title" name="title">
         			<label class="control-label col-sm-2">Content</label>
-        			<textarea required class="form-control" id="content" name="content" rows="3"></textarea>
+        			<textarea required class="form-control" id="content" name="content"></textarea>
       			</div>
       			<p></p>
       			<div class="d-grid gap-2">
@@ -66,6 +66,19 @@
         	 response.sendRedirect("/forums/create.jsp?message=That%20forum%20does%20not%20exist.");
          }
      } %>
+     <script>
+    	var simplemde = new SimpleMDE({
+    	element: document.getElementById("content"),
+    	forceSync: true,
+    	showIcons: ["code", "table", "heading-smaller", "heading-bigger", "quote", "clean-block"],
+     	previewRender: function(md, preview) {
+     		setTimeout(function() {
+     			preview.innerHTML = marked(md);
+     		}, 250);
+     		return "Rendering...";
+     	}
+   	 });
+     </script>
      <jsp:include page="/static/js/norefresh.js"></jsp:include>
      <jsp:include page="/elements/footer.jsp"></jsp:include>
    </body>
