@@ -15,6 +15,10 @@
       <jsp:include page="/elements/alert.jsp"></jsp:include>
       <br />
       <h1>Profile</h1>
+      <% if (session.getAttribute("email") == null) {
+    	 response.sendError(403);
+       }
+       %>
       <% if (request.getMethod().equalsIgnoreCase("get")) { %>
       <% if (session.getAttribute("email") != null) { %>
       <div class="container card">
@@ -28,6 +32,8 @@
         			<input class="form-control" type="password" id="newpassword" name="newpassword">
         			<label class="control-label col-sm-2">New Icon</label>
         			<input class="form-control" type="text" id="icon" name="icon">
+        			<label class="control-label col-sm-2">New Status</label>
+        			<input class="form-control" type="text" id="status" name="status">
         			<label class="control-label col-sm-2">Current Password</label>
         			<input required class="form-control" type="password" id="password" name="password">
       			</div>
@@ -66,6 +72,9 @@
         		}
         		if (!(((String) request.getParameter("newpassword")).equals(""))) {
         			user.setPassword((String)request.getParameter("newpassword"));
+        		}
+        		if (!(((String) request.getParameter("status")).equals(""))) {
+        			user.setStatus((String)request.getParameter("status"));
         		}
         		if (!(((String) request.getParameter("icon")).equals(""))) {
         			user.setIcon((String)request.getParameter("icon"));

@@ -35,7 +35,7 @@
 					%>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="javascript:void(0);" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="rounded" style="width: auto; height: 35px;" src=<%= user.get("icon") %>>
+							<img data-bs-toggle="tooltip" data-bs-placement="right" title="<%= user.get("status") %>" class="rounded" style="width: auto; height: 35px;" src=<%= user.get("icon") %>>
 							<br>
 							<span><%= user.get("username") %></span>
 						</a>

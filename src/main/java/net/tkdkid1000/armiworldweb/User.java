@@ -16,6 +16,7 @@ public class User {
 	private String icon;
 	private int reputation;
 	private String role;
+	private String status;
 	
 	public static User from(String email) {
 		List<HashMap<String, Object>> result = Database.runQuery(String.format("SELECT * FROM users WHERE email=\"%s\"", email));
@@ -26,7 +27,8 @@ public class User {
 					(String) user.get("password"), 
 					(String) user.get("icon"),
 					(int) user.get("reputation"),
-					(String) user.get("role"));
+					(String) user.get("role"),
+					(String) user.get("status"));
 			return usr;
 		}
 		return null;
@@ -39,15 +41,17 @@ public class User {
 		this.icon = "https://purr.objects-us-east-1.dream.io/i/20160824_163745-1.jpg";
 		this.reputation = 0;
 		this.role = "default";
+		this.status = "Nothing yet.";
 	}
 	
-	public User(String email, String username, String password, String icon, int reputation, String role) {
+	public User(String email, String username, String password, String icon, int reputation, String role, String status) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.icon = icon;
 		this.reputation = reputation;
 		this.role = role;
+		this.status = status;
 	}
 	
 	public String getUrl() {
@@ -133,28 +137,50 @@ public class User {
 		}
 	}
 	
+	public void setRole(String role) {
+		this.role = role;
+		try {
+			update();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+		try {
+			update();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
 	public Map<String, Object> getData() {
 		return Database.runQuery(String.format("SELECT * FROM users WHERE email=\"%s\"", email)).get(0);
 	}
 	
 	public void register() {
-		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation,role) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s,\"%s\");", email, username, password, icon, reputation, role));
+		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation,role,status) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s,\"%s\",\"%s\");", email, username, password, icon, reputation, role, status));
 	}
 	
 	private void update() throws IOException {
-		System.out.println(String.format("UPDATE users SET email=\"%s\", "
-				+ "username=\"%s\", "
-				+ "password=\"%s\", "
-				+ "icon=\"%s\", "
-				+ "reputation=%s, "
-				+ "role=%s "
-				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation, role));
 		Database.runCommand(String.format("UPDATE users SET email=\"%s\", "
 				+ "username=\"%s\", "
 				+ "password=\"%s\", "
 				+ "icon=\"%s\", "
 				+ "reputation=%s, "
-				+ "role=%s "
-				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation, role));
+				+ "role=\"%s\", "
+				+ "status=\"%s\" "
+				+ "WHERE email=\""+email+"\";", email, username, password, icon, reputation, role, status));
 	}
 }

@@ -15,7 +15,7 @@
 <html>
 	<head>
 		<jsp:include page="/elements/static_imports.jsp"></jsp:include>
-		<title><%= Config.get("servertitle", "Armi's World") %> - Create Thread</title>
+		<title><%= Config.get("servertitle", "Armi's World") %> - Thread - <%= request.getParameter("id") %></title>
 	</head>
 	<body>
 		<jsp:include page="/elements/navbar.jsp"></jsp:include>

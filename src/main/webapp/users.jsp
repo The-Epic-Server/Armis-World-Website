@@ -2,6 +2,7 @@
 <%@page import="net.tkdkid1000.armiworldweb.Config" %>
 <%@page import="java.util.HashMap"%>
 <%@page import="net.tkdkid1000.armiworldweb.Database"%>
+<%@page import="net.tkdkid1000.armiworldweb.User" %>
 <%@page import="java.util.List" %>
 <!doctype html>
 <html>
@@ -36,12 +37,15 @@
       		<li class="list-group-item list-group-item-danger">If both of the above are true, then you may report this as an error.</li>
       	</ul>
       	<% } else { %>
+      	<%
+      	User user = User.from(((String)Database.runQuery("SELECT * FROM users WHERE UPPER(username) LIKE UPPER(\""+request.getParameter("name")+"\");").get(0).get("email")));
+      	%>
       		<div class="card mx-auto" style="width: 18rem;">
-      			<img class="card-img-top" src="<%= Database.runQuery("SELECT * FROM users WHERE UPPER(username) LIKE UPPER(\""+request.getParameter("name")+"\");").get(0).get("icon") %>">
+      			<img class="card-img-top" src="<%= user.getIcon() %>">
       			<div class="card-body">
-      				<h5 class="card-title"><%= Database.runQuery("SELECT * FROM users WHERE UPPER(username) LIKE UPPER(\""+request.getParameter("name")+"\");").get(0).get("username") %></h5>
-      				<p class="card-text">Nothing here. We haven't added user descriptions yet.</p>
-      				<a href="javascript:void(0);" class="btn btn-primary" onclick="copytext('<%= request.getRequestURL()+"?"+request.getQueryString() %>')">Copy User Link</a>
+      				<h5 class="card-title"><%= user.getUsername() %></h5>
+      				<p class="card-text"><%= user.getStatus() %></p>
+      				<a href="javascript:void(0);" class="btn btn-primary" onclick="copytext('<%= user.getUrl() %>')">Copy User Link</a>
       			</div>
       		</div>
       	<% } %>
