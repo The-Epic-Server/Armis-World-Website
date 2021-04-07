@@ -1,46 +1,25 @@
-name: remote ssh command to deploy
-on:
-  push:
-    branches: [ master ]
+on: [push]
 
 jobs:
-  build:
-    name: Build
+  deploy:
     runs-on: ubuntu-latest
+    name: Typical Usage of OpenVPN
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Install Open VPN
-        run: |
-          sudo apt-get install openvpn
-          echo "${{ secrets.VPN_FILE }}" > .github/vpn/config.ovpn
-
-      - name: Connect VPN
-        uses: golfzaptw/action-connect-ovpn@master
-        id: connect_vpn
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install OpenVPN
+        run: sudo apt install -y openvpn openvpn-systemd-resolved
+      - name: Connect to VPN
+        uses: "./"
         with:
-          PING_URL: ${{ secrets.REMOTE_HOST }}
-          FILE_OVPN: '.github/vpn/config.ovpn'
-        env:
-          CA_CRT: ${{ secrets.CA_CRT}}
-          USER_CRT: ${{ secrets.USER_CRT }}
-          USER_KEY: ${{ secrets.USER_KEY }}
-
-      - name: Check Connect VPN
-        run: echo ${{ steps.connect_vpn.outputs.STATUS }}
-
-      - name: Execute ssh command via using private key
+          config_file: .github/workflows/client.ovpn
+          username: ${{ secrets.OVPN_USERNAME }}
+          password: ${{ secrets.OVPN_PASSWORD }}
+      - name: Check if connected
         uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.CICD_SSH_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            pwd
-            cd ${{ secrets.REMOTE_TARGET }}
-            ./updatejetty.sh
-
-      - name: kill vpn
-        if: always()
-        run: sudo killall openvpn
+          with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: "./updatejetty.sh"
