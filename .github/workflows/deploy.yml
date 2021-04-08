@@ -12,22 +12,16 @@ jobs:
 
       - name: Install Open VPN
         run: |
-          sudo apt-get install openvpn
+          sudo apt install -y openvpn openvpn-systemd-resolved
           echo "${{ secrets.VPN_FILE }}" > ./config.ovpn
 
-      - name: Connect VPN
-        uses: golfzaptw/action-connect-ovpn@master
-        id: connect_vpn
+      - name: Connect to VPN
+        uses: "kota65535/github-openvpn-connect-action@v1"
         with:
-          PING_URL: ${{ secrets.REMOTE_HOST }}
-          FILE_OVPN: './config.ovpn'
-        env:
-          CA_CRT: ${{ secrets.CA_CRT}}
-          USER_CRT: ${{ secrets.USER_CRT }}
-          USER_KEY: ${{ secrets.USER_KEY }}
-
-      - name: Check Connect VPN
-        run: echo ${{ steps.connect_vpn.outputs.STATUS }}
+          config_file: ./github/workflows/client.ovpn
+          username: ${{ secrets.OVPN_USERNAME }}
+          password: ${{ secrets.OVPN_PASSWORD }}
+          client_key: ${{ secrets.OVPN_CLIENT_KEY }}
 
       - name: Execute ssh command via using private key
         uses: appleboy/ssh-action@master
@@ -39,7 +33,3 @@ jobs:
           script: |
             pwd
             ./updatejetty.sh
-
-      - name: kill vpn
-        if: always()
-        run: sudo killall openvpn
