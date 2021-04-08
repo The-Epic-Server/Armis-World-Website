@@ -1,7 +1,7 @@
 name: Remote vpn to deploy to vps
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
