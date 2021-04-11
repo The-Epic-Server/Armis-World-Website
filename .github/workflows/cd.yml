@@ -18,9 +18,9 @@ jobs:
       - name: Connect VPN
         run: |
           echo ${{ secrets.OVPN_PASSWORD }} > auth.txt
-          echo "${{ secrets.OVPN_FILE }}" > .github/vpn/config.ovpn
+          echo "${{ secrets.OVPN_FILE }}" > config.ovpn
           screen -dmS vpn
-          screen -S vpn -p 0 -X stuff 'sudo openvpn --config ".github/vpn/config.ovpn" --askpass auth.txt^M'
+          screen -S vpn -p 0 -X stuff 'sudo openvpn --config config.ovpn --askpass auth.txt^M'
       - name: Run ssh commands
         uses: appleboy/ssh-action@master
         with:
