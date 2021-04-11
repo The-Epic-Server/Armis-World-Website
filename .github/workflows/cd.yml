@@ -1,0 +1,36 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install screen
+        run: sudo apt-get install screen
+      - name: Install Open VPN
+        run: sudo apt-get install openvpn
+      - name: Connect VPN
+        run: |
+          echo ${{ secrets.OVPN_PASSWORD }} > auth.txt
+          echo "${{ secrets.OVPN_FILE }}" > .github/vpn/config.ovpn
+          screen -dmS vpn
+          screen -S vpn -p 0 -X stuff 'sudo openvpn --config ".github/vpn/config.ovpn" --askpass auth.txt^M'
+      - name: Run ssh commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_ADDRESS }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          timeout: "120s"
+          script: './updatejetty.sh'
+        
+      - name: kill vpn
+        if: always()
+        run: screen -S vpn -p 0 -X stuff '^C'
