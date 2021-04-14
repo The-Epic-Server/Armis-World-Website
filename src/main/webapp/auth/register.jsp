@@ -38,7 +38,6 @@
     		List<HashMap<String, Object>> allusers = Database.runQuery("SELECT * FROM users;");
     		boolean contains = false;
 			for (HashMap<String, Object> usr : allusers) {
-				System.out.println(usr.get("username"));
 				if (((String)usr.get("username")).equalsIgnoreCase((String)request.getParameter("username"))) {
 					contains = true;
 				}

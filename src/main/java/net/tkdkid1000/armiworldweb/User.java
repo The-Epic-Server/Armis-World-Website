@@ -1,6 +1,5 @@
 package net.tkdkid1000.armiworldweb;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -73,12 +72,7 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public String getUsername() {
@@ -87,12 +81,7 @@ public class User {
 	
 	public void setUsername(String username) {
 		this.username = username;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public String getPassword() {
@@ -101,12 +90,7 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public String getIcon() {
@@ -115,12 +99,7 @@ public class User {
 	
 	public void setIcon(String icon) {
 		this.icon = icon;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public int getReputation() {
@@ -129,22 +108,12 @@ public class User {
 	
 	public void setReputation(int reputation) {
 		this.reputation = reputation;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public void setRole(String role) {
 		this.role = role;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public String getRole() {
@@ -153,12 +122,7 @@ public class User {
 	
 	public void setStatus(String status) {
 		this.status = status;
-		try {
-			update();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		update();
 	}
 	
 	public String getStatus() {
@@ -173,7 +137,7 @@ public class User {
 		Database.runCommand(String.format("INSERT INTO users(email,username,password,icon,reputation,role,status) VALUES(\"%s\",\"%s\",\"%s\",\"%s\",%s,\"%s\",\"%s\");", email, username, password, icon, reputation, role, status));
 	}
 	
-	private void update() throws IOException {
+	private void update() {
 		Database.runCommand(String.format("UPDATE users SET email=\"%s\", "
 				+ "username=\"%s\", "
 				+ "password=\"%s\", "

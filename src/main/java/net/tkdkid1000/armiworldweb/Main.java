@@ -26,6 +26,7 @@ public class Main {
 		Database.runCommand("CREATE TABLE IF NOT EXISTS forums (id INTEGER UNIQUE, name TEXT UNIQUE, description TEXT, parent TEXT NOT NULL, lastpost INTEGER);");
 		Database.runCommand("CREATE TABLE IF NOT EXISTS categories (id INTEGER UNIQUE, name TEXT NOT NULL, description TEXT NOT NULL);");
 		Database.runCommand("CREATE TABLE IF NOT EXISTS threads (id INTEGER UNIQUE, title TEXT, author TEXT NOT NULL, content TEXT NOT NULL, date DATETIME NOT NULL, forum INTEGER NOT NULL);");
+		Database.runCommand("CREATE TABLE IF NOT EXISTS tickets (id INTEGER UNIQUE, author TEXT NOT NULL, title TEXT NOT NULL, content TEXT NOT NULL, date DATETIME NOT NULL, status BOOLEAN NOT NULL, accepted BOOLEAN NOT NULL);");
 		server.start();
 		server.join();
 	}
